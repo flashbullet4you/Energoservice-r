@@ -39,7 +39,7 @@ graph TD
 
 | Уровень | Технология |
 | :--- | :--- |
-| **Backend** | Python 3.11, FastAPI, APScheduler |
+| **Backend** | Python 3.14, FastAPI, APScheduler |
 | **Векторное хранилище** | ChromaDB (PersistentClient) |
 | **AI/ML** | Yandex AI Studio (Embeddings + YandexGPT) |
 | **Frontend** | Node.js 20, React 18, Vite |
