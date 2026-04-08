@@ -51,32 +51,43 @@ graph TD
 
 ```text
 Energoservice-r/
-├── backend/
-│   ├── app.py                  # FastAPI приложение + Yandex AI Provider
-│   ├── requirements.txt        # Python зависимости
-│   └── Dockerfile
-├── frontend/
+├── backend/                          # Серверная часть (FastAPI)
+│   ├── app.py                        # Точка входа: запуск FastAPI, middleware, маршруты
+│   ├── config.py                     # Конфигурация: env-переменные, логирование, ChromaDB
+│   ├── ai_provider.py                # Yandex AI Studio: генерация эмбеддингов и чат
+│   ├── document_processor.py         # Обработка файлов: парсинг PDF/DOCX/XLSX, конвертация DWG
+│   ├── indexer.py                    # Индексация документов в ChromaDB + фоновый планировщик
+│   ├── html_templates.py             # HTML-шаблоны: страницы /api/health и /dashboard
+│   ├── routes.py                     # Обработчики API-эндпоинтов (/api/query, /api/index и др.)
+│   ├── requirements.txt              # Python-зависимости
+│   └── Dockerfile                    # Образ бэкенда
+│
+├── frontend/                         # Клиентская часть (React + Vite)
 │   ├── src/
-│   │   ├── components/         # React компоненты
-│   │   │   ├── Header.jsx          # Шапка приложения
-│   │   │   ├── SearchCard.jsx      # Форма поиска с кнопками
-│   │   │   ├── ErrorMessage.jsx    # Блок отображения ошибок
-│   │   │   └── ResultCard.jsx      # Блок ответа с источниками
-│   │   ├── App.jsx             # Главный компонент (логика и состояние)
-│   │   ├── App.css             # Глобальные стили приложения
-│   │   └── main.jsx            # Точка входа React
-│   ├── nginx.conf              # Конфигурация Nginx (прокси + таймауты)
-│   ├── vite.config.js          # Конфигурация Vite
-│   ├── package.json            # Зависимости frontend
-│   └── Dockerfile
-├── docs/                       # Папка с документами (монтируется в контейнер)
-├── dwg_cache/                  # Кэш PDF из DWG-чертежей
-├── chroma_db/                  # Локальная векторная база ChromaDB
-├── logs/                       # Логи приложения (ротация 10MB × 5)
-├── .env                        # Секреты и настройки (не коммитится)
-├── docker-compose.yml          # Оркестрация контейнеров
-├── pyproject.toml              # Конфигурация Python проекта
-└── uv.lock                     # Lock-файл зависимостей uv
+│   │   ├── components/               # React-компоненты
+│   │   │   ├── Header.jsx            # Шапка с заголовком
+│   │   │   ├── SearchCard.jsx        # Форма поиска и кнопка индексации
+│   │   │   ├── ErrorMessage.jsx      # Блок отображения ошибок
+│   │   │   └── ResultCard.jsx        # Блок ответа AI с источниками
+│   │   ├── App.jsx                   # Главный компонент: состояние и логика
+│   │   ├── App.css                   # Глобальные стили
+│   │   └── main.jsx                  # Точка входа React
+│   ├── nginx.conf                    # Nginx: прокси на бэкенд + таймауты
+│   ├── vite.config.js                # Настройки сборщика Vite
+│   ├── package.json                  # Node-зависимости
+│   └── Dockerfile                    # Образ фронтенда
+│
+├── docs/                             # Документы для индексации (PDF, DOCX, XLSX, DWG)
+├── dwg_cache/                        # Кэш: PDF-файлы после конвертации DWG
+├── chroma_db/                        # Векторная база ChromaDB (создаётся автоматически)
+├── logs/                             # Логи приложения (ротация: 10 МБ × 5 файлов)
+│
+├── .env                              # Секреты и настройки (не коммитится в Git)
+├── .env.example                      # Пример .env-файла
+├── docker-compose.yml                # Оркестрация: backend + frontend
+├── pyproject.toml                    # Конфигурация Python-проекта (uv)
+├── uv.lock                           # Lock-файл зависимостей
+└── README.md                         # Этот файл
 ```
 
 ---
