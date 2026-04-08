@@ -60,6 +60,7 @@ Energoservice-r/
 │   ├── html_templates.py             # HTML-шаблоны: страницы /api/health и /dashboard
 │   ├── routes.py                     # Обработчики API-эндпоинтов (/api/query, /api/index и др.)
 │   ├── requirements.txt              # Python-зависимости
+│   ├── .dockerignore                 # Исключения для Docker-образа
 │   └── Dockerfile                    # Образ бэкенда
 │
 ├── frontend/                         # Клиентская часть (React + Vite)
@@ -75,6 +76,7 @@ Energoservice-r/
 │   ├── nginx.conf                    # Nginx: прокси на бэкенд + таймауты
 │   ├── vite.config.js                # Настройки сборщика Vite
 │   ├── package.json                  # Node-зависимости
+│   ├── .dockerignore                 # Исключения для Docker-образа
 │   └── Dockerfile                    # Образ фронтенда
 │
 ├── docs/                             # Документы для индексации (PDF, DOCX, XLSX, DWG)
